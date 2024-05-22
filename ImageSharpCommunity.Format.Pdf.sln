@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34902.65
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageSharpCommunity.Format.Pdf", "ImageSharpCommunity.Format.Pdf\ImageSharpCommunity.Format.Pdf.csproj", "{D031DDD6-B5CE-4307-8211-9AA71FED3BD7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "TestApp\TestApp.csproj", "{37410161-11B4-44E4-A8E4-5E472C8A8525}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D031DDD6-B5CE-4307-8211-9AA71FED3BD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D031DDD6-B5CE-4307-8211-9AA71FED3BD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D031DDD6-B5CE-4307-8211-9AA71FED3BD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D031DDD6-B5CE-4307-8211-9AA71FED3BD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37410161-11B4-44E4-A8E4-5E472C8A8525}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37410161-11B4-44E4-A8E4-5E472C8A8525}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37410161-11B4-44E4-A8E4-5E472C8A8525}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37410161-11B4-44E4-A8E4-5E472C8A8525}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3A6CB6B3-6672-4E8B-A88E-94D168AD8CCC}
+	EndGlobalSection
+EndGlobal
