@@ -5,9 +5,11 @@ VisualStudioVersion = 17.9.34902.65
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageSharpCommunity.Formats.Pdf", "ImageSharpCommunity.Formats.Pdf\ImageSharpCommunity.Formats.Pdf.csproj", "{D031DDD6-B5CE-4307-8211-9AA71FED3BD7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestApp", "TestApp\TestApp.csproj", "{37410161-11B4-44E4-A8E4-5E472C8A8525}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestApp", "Samples\TestApp\TestApp.csproj", "{37410161-11B4-44E4-A8E4-5E472C8A8525}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWebApp", "TestWebApp\TestWebApp.csproj", "{58BCA657-04F7-413C-8F95-7F49FBA1F818}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestWebApp", "Samples\TestWebApp\TestWebApp.csproj", "{58BCA657-04F7-413C-8F95-7F49FBA1F818}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{5A9A2F86-1BC3-4BF3-96CB-FFA52F2D217A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,6 +32,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{37410161-11B4-44E4-A8E4-5E472C8A8525} = {5A9A2F86-1BC3-4BF3-96CB-FFA52F2D217A}
+		{58BCA657-04F7-413C-8F95-7F49FBA1F818} = {5A9A2F86-1BC3-4BF3-96CB-FFA52F2D217A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3A6CB6B3-6672-4E8B-A88E-94D168AD8CCC}
