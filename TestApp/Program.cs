@@ -1,5 +1,4 @@
-﻿
-using ImageSharpCommunity.Format.Pdf;
+﻿using ImageSharpCommunity.Formats.Pdf;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 

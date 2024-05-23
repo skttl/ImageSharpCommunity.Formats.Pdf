@@ -1,6 +1,6 @@
 ﻿using SixLabors.ImageSharp.Formats;
 
-namespace ImageSharpCommunity.Format.Pdf
+namespace ImageSharpCommunity.Formats.Pdf
 {
     public sealed class PdfFormat : IImageFormat
     {

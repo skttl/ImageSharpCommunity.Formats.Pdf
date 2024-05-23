@@ -3,7 +3,7 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats;
 using SixLabors.ImageSharp.PixelFormats;
 
-namespace ImageSharpCommunity.Format.Pdf
+namespace ImageSharpCommunity.Formats.Pdf
 {
     public class PdfDecoder : SpecializedImageDecoder<PdfDecoderOptions>
     {

@@ -1,7 +1,7 @@
 ﻿using SixLabors.ImageSharp.Formats;
 using System.Diagnostics.CodeAnalysis;
 
-namespace ImageSharpCommunity.Format.Pdf
+namespace ImageSharpCommunity.Formats.Pdf
 {
     public class PdfFormatDetector : IImageFormatDetector
     {
