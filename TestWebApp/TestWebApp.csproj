@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\sample.pdf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\sample.pdf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SixLabors.ImageSharp.Web" Version="3.1.2" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\ImageSharpCommunity.Format.Pdf\ImageSharpCommunity.Format.Pdf.csproj" />
+	</ItemGroup>
+</Project>

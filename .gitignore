@@ -3,3 +3,5 @@ ImageSharpCommunity.Format.Pdf/bin
 ImageSharpCommunity.Format.Pdf/obj
 bin
 obj
+TestWebApp/wwwroot/is-cache
+*.csproj.user
