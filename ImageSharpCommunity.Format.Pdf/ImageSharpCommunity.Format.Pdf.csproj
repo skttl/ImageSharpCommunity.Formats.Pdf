@@ -7,8 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="PdfLibCore" Version="2.5.0" />
+	<PackageReference Include="Ghostscript.Core" Version="1.5.0-preview-1.0.2" />
     <PackageReference Include="SixLabors.ImageSharp" Version="3.1.4" />
   </ItemGroup>
 
+	<ItemGroup>
+		<Content Include="lib\gsdll32.dll">
+			<PackagePath>lib\net8.0</PackagePath>
+			<Pack>true</Pack>
+		</Content>
+		<Content Include="lib\gsdll64.dll">
+			<PackagePath>lib\net8.0</PackagePath>
+			<Pack>true</Pack>
+		</Content>
+	</ItemGroup>
 </Project>

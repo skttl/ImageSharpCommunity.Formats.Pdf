@@ -1,7 +1,11 @@
-﻿using PdfLibCore;
+﻿using Ghostscript.NET;
+using Ghostscript.NET.Rasterizer;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats;
+using SixLabors.ImageSharp.Formats.Png;
 using SixLabors.ImageSharp.PixelFormats;
+using System.Drawing.Imaging;
+using System.Reflection;
 
 namespace ImageSharpCommunity.Format.Pdf
 {
@@ -23,17 +27,19 @@ namespace ImageSharpCommunity.Format.Pdf
             ArgumentNullException.ThrowIfNull(options, nameof(options));
             ArgumentNullException.ThrowIfNull(stream, nameof(stream));
 
-            using var pdfDocument = new PdfDocument(stream);
-            var page = pdfDocument?.Pages?.FirstOrDefault();
 
-            TryGetWidthAndHeight(page, out var width, out var height);
+            using var rasterizer = new GhostscriptRasterizer();
+            rasterizer.Open(stream, GetGhostscriptVersion(), true);
 
-            ArgumentNullException.ThrowIfNull(page, nameof(page));
+            var firstPageAsImage = rasterizer.GetPage(200, 1);
 
-            using var bitmap = new PdfiumBitmap(width, height, true);
-            page.Render(bitmap, PdfLibCore.Enums.PageOrientations.Normal, PdfLibCore.Enums.RenderingFlags.LcdText);
+            using var memoryStream = new MemoryStream();
+            firstPageAsImage.Save(memoryStream, ImageFormat.Png);
+            memoryStream.Position = 0;
 
-            var image = Image.Load<TPixel>(bitmap.AsBmpStream());
+            var image = PngDecoder.Instance.Decode<TPixel>(options.GeneralOptions, memoryStream);
+
+            var binPath = Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location);
 
             ScaleToTargetSize(options.GeneralOptions, image);
 
@@ -47,27 +53,22 @@ namespace ImageSharpCommunity.Format.Pdf
             ArgumentNullException.ThrowIfNull(options, nameof(options));
             ArgumentNullException.ThrowIfNull(stream, nameof(stream));
 
-            using var pdfDocument = new PdfDocument(stream);
-            var page = pdfDocument?.Pages?.FirstOrDefault();
-            TryGetWidthAndHeight(page, out int width, out int height);
+            using var rasterizer = new GhostscriptRasterizer();
+            rasterizer.Open(stream, GetGhostscriptVersion(), true);
+            var firstPageAsImage = rasterizer.GetPage(200, 1);
 
-            return new ImageInfo(new PixelTypeInfo(4), new(width, height), null);
+
+
+            return new ImageInfo(new PixelTypeInfo(4), new(firstPageAsImage.Width, firstPageAsImage.Height), null);
         }
 
-        private bool TryGetWidthAndHeight(PdfPage? page, out int width, out int height)
+        private GhostscriptVersionInfo GetGhostscriptVersion()
         {
-            ArgumentNullException.ThrowIfNull(page, nameof(page));
+            var binPath = Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location);
+            var gsDllPath = Path.Combine(binPath ?? "", Environment.Is64BitProcess ? "gsdll64.dll" : "gsdll32.dll");
+            var version = new GhostscriptVersionInfo(new Version(10, 02, 1), gsDllPath, string.Empty, GhostscriptLicense.GPL);
 
-            var w = page.Size.Width;
-            w = w != 0 ? w / 72 * 144D : 0;
-
-            var h = page.Size.Height;
-            h = h != 0 ? h / 72 * 144D : 0;
-
-            width = (int)w;
-            height = (int)h;
-
-            return true;
+            return version;
         }
     }
 }
