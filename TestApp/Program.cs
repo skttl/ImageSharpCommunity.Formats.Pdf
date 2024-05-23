@@ -1,6 +1,7 @@
 ﻿
 using ImageSharpCommunity.Format.Pdf;
 using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
 
 Directory.CreateDirectory("output");
 
@@ -11,7 +12,7 @@ var filenames = new[] {
 foreach (var filename in filenames)
 {
     File.Copy(Path.Combine("sample-files", filename), Path.Combine("output", filename), true);
-    ConvertImage(Path.Combine("sample-files", filename), Path.Combine("output", filename + ".jpg"));
+    ConvertImage(Path.Combine("sample-files", filename), Path.Combine("output", Path.GetFileNameWithoutExtension(filename) + "." + DateTime.Now.Ticks + ".png"));
 }
 
 
@@ -26,6 +27,6 @@ static void ConvertImage(string inputPath, string outputPath)
 
     using var image = Image.Load(inputPath);
 
-    using var ms = File.Create(outputPath);
-    image.SaveAsJpeg(ms);
+    image.Mutate(x => x.Resize(100, 100));
+    image.SaveAsPng(outputPath);
 }
