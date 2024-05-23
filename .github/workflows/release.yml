@@ -17,14 +17,8 @@ jobs:
       if: ${{ env.VERSION == '' }}
       run: exit 1
     - name: Build ImageSharp Package
-      run: dotnet pack ./src/ImageSharpCommunity.Providers.Remote/ImageSharpCommunity.Providers.Remote.csproj /p:NuGetVersion=${VERSION} /p:Version=${VERSION} --output . --configuration Release
+      run: dotnet pack ./src/ImageSharpCommunity.Formats.Pdf/ImageSharpCommunity.Formats.Pdf.csproj /p:NuGetVersion=${VERSION} /p:Version=${VERSION} --output . --configuration Release
     - name: Pack
-      run: dotnet pack ./src/ImageSharpCommunity.Providers.Remote/ImageSharpCommunity.Providers.Remote.csproj /p:NuGetVersion=${VERSION} /p:Version=${VERSION} --output . --configuration Release --no-build
+      run: dotnet pack ./src/ImageSharpCommunity.Formats.Pdf/ImageSharpCommunity.Formats.Pdf.csproj /p:NuGetVersion=${VERSION} /p:Version=${VERSION} --output . --configuration Release --no-build
     - name: Push to NuGet
-      run: dotnet nuget push **\ImageSharpCommunity.Providers.Remote.${VERSION}.nupkg --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
-    - name: Build Umbraco Package
-      run: dotnet pack ./src/Umbraco.Community.ImageSharpRemoteImages/Umbraco.Community.ImageSharpRemoteImages.csproj /p:NuGetVersion=${VERSION} /p:Version=${VERSION} --output . --configuration Release
-    - name: Pack
-      run: dotnet pack ./src/Umbraco.Community.ImageSharpRemoteImages/Umbraco.Community.ImageSharpRemoteImages.csproj /p:NuGetVersion=${VERSION} /p:Version=${VERSION} --output . --configuration Release --no-build
-    - name: Push to NuGet
-      run: dotnet nuget push **\Umbraco.Community.ImageSharpRemoteImages.${VERSION}.nupkg --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
+      run: dotnet nuget push **\ImageSharpCommunity.Formats.Pdf.${VERSION}.nupkg --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
