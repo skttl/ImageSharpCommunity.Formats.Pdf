@@ -2,7 +2,7 @@
 
 [![Downloads](https://img.shields.io/nuget/dt/ImageSharpCommunity.Formats.Pdf?color=cc9900)](https://www.nuget.org/packages/ImageSharpCommunity.Formats.Pdf/)
 [![NuGet](https://img.shields.io/nuget/vpre/ImageSharpCommunity.Formats.Pdf?color=0273B3)](https://www.nuget.org/packages/ImageSharpCommunity.Formats.Pdf)
-[![GitHub license](https://img.shields.io/github/license/skttl/ImageSharp.Community.Formats.Pdf?color=8AB803)](https://github.com/skttl/ImageSharp.Community.Formats.Pdf/blob/main/LICENSE)
+[![GitHub license](https://img.shields.io/github/license/skttl/ImageSharpCommunity.Formats.Pdf?color=8AB803)](https://github.com/skttl/ImageSharpCommunity.Formats.Pdf/blob/main/LICENSE)
 
 Image decoder for PDF files for [ImageSharp](https://docs.sixlabors.com/articles/imagesharp/index.html) based on [PdfLibCore](https://github.com/jbaarssen/PdfLibCore)
 
