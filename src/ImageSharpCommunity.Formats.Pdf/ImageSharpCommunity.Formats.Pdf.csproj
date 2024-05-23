@@ -1,14 +1,38 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<Authors>Søren Kottal</Authors>
+		<Copyright>$([System.DateTime]::UtcNow.ToString(`yyyy`)) © Søren Kottal</Copyright>
+		<Description>
+			Image decoder for PDF files for ImageSharp based on PdfLibCore
+		</Description>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<PackageId>ImageSharpCommunity.Formats.Pdf</PackageId>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/skttl/ImageSharpCommunity.Formats.Pdf</PackageProjectUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageTags>image</PackageTags>
+		<Product>ImageSharpCommunity.Formats.Pdf</Product>
+		<RepositoryType>git</RepositoryType>
+		<RepositoryUrl>https://github.com/skttl/ImageSharpCommunity.Formats.Pdf</RepositoryUrl>
+		<RootNamespace>ImageSharpCommunity.Formats.Pdf</RootNamespace>
+		<Title>PDF Decoder for ImageSharp</Title>
+		<Version>0.1.0</Version>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="PdfLibCore" Version="2.5.0" />
-    <PackageReference Include="SixLabors.ImageSharp" Version="3.1.4" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="PdfLibCore" Version="2.5.0" />
+		<PackageReference Include="SixLabors.ImageSharp" Version="3.1.4" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
 
 </Project>
