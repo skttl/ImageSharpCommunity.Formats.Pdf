@@ -32,5 +32,27 @@ image.SaveAsPng("document.png");
 ```
 More info <https://docs.sixlabors.com/articles/imagesharp/configuration.html>
 
+## Usage in Umbraco
+
+To use in Umbraco, you must inject the configuration in an appropriate manor, eg. in a Composer.
+
+```
+using Umbraco.Cms.Core.Composing;
+
+namespace MyUmbracoProject;
+
+public class PdfFormatComposer : IComposer
+{
+    public void Compose(IUmbracoBuilder builder)
+    {
+        var config = SixLabors.ImageSharp.Configuration.Default.Clone();
+        config.Configure(new ImageSharpCommunity.Formats.Pdf.PdfConfigurationModule());
+    }
+}
+
+```
+
+This will be picked up by Umbraco when starting the website, and adds the necessary configuration.
+
 ## License
 [MIT](LICENSE)
