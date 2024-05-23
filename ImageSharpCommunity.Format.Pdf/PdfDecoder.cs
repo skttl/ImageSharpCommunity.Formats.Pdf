@@ -1,13 +1,11 @@
 ﻿using PdfLibCore;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats;
-using SixLabors.ImageSharp.Formats.Bmp;
 using SixLabors.ImageSharp.PixelFormats;
-using Image = SixLabors.ImageSharp.Image;
 
 namespace ImageSharpCommunity.Format.Pdf
 {
-    public class PdfDecoder : SpecializedImageDecoder<BmpDecoderOptions>
+    public class PdfDecoder : SpecializedImageDecoder<PdfDecoderOptions>
     {
         private PdfDecoder()
         {
@@ -18,9 +16,9 @@ namespace ImageSharpCommunity.Format.Pdf
         /// </summary>
         public static PdfDecoder Instance { get; } = new PdfDecoder();
 
-        protected override BmpDecoderOptions CreateDefaultSpecializedOptions(DecoderOptions options) => new() { GeneralOptions = options };
+        protected override PdfDecoderOptions CreateDefaultSpecializedOptions(DecoderOptions options) => new() { GeneralOptions = options };
 
-        protected override Image<TPixel> Decode<TPixel>(BmpDecoderOptions options, Stream stream, CancellationToken cancellationToken)
+        protected override Image<TPixel> Decode<TPixel>(PdfDecoderOptions options, Stream stream, CancellationToken cancellationToken)
         {
             ArgumentNullException.ThrowIfNull(options, nameof(options));
             ArgumentNullException.ThrowIfNull(stream, nameof(stream));
@@ -42,7 +40,7 @@ namespace ImageSharpCommunity.Format.Pdf
             return image;
         }
 
-        protected override Image Decode(BmpDecoderOptions options, Stream stream, CancellationToken cancellationToken) => Decode<Rgba32>(options, stream, cancellationToken);
+        protected override Image Decode(PdfDecoderOptions options, Stream stream, CancellationToken cancellationToken) => Decode<Rgba32>(options, stream, cancellationToken);
 
         protected override ImageInfo Identify(DecoderOptions options, Stream stream, CancellationToken cancellationToken)
         {
