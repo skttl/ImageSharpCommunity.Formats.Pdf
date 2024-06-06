@@ -1,73 +1,59 @@
-﻿using PdfLibCore;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Formats;
-using SixLabors.ImageSharp.PixelFormats;
+﻿namespace ImageSharpCommunity.Formats.Pdf;
 
-namespace ImageSharpCommunity.Formats.Pdf
+public class PdfDecoder : SpecializedImageDecoder<PdfDecoderOptions>
 {
-    public class PdfDecoder : SpecializedImageDecoder<PdfDecoderOptions>
+    private PdfDecoder()
     {
-        private PdfDecoder()
-        {
-        }
+    }
 
-        /// <summary>
-        /// Gets the current instance.
-        /// </summary>
-        public static PdfDecoder Instance { get; } = new PdfDecoder();
+    /// <summary>
+    /// Gets the current instance.
+    /// </summary>
+    public static PdfDecoder Instance { get; } = new PdfDecoder();
 
-        protected override PdfDecoderOptions CreateDefaultSpecializedOptions(DecoderOptions options) => new() { GeneralOptions = options };
+    protected override PdfDecoderOptions CreateDefaultSpecializedOptions(DecoderOptions options) => new() { GeneralOptions = options };
 
-        protected override Image<TPixel> Decode<TPixel>(PdfDecoderOptions options, Stream stream, CancellationToken cancellationToken)
-        {
-            ArgumentNullException.ThrowIfNull(options, nameof(options));
-            ArgumentNullException.ThrowIfNull(stream, nameof(stream));
+    protected override Image<TPixel> Decode<TPixel>(PdfDecoderOptions options, Stream stream, CancellationToken cancellationToken)
+    {
+        ArgumentNullException.ThrowIfNull(options, nameof(options));
+        ArgumentNullException.ThrowIfNull(stream, nameof(stream));
 
-            using var pdfDocument = new PdfDocument(stream);
-            var page = pdfDocument?.Pages?.FirstOrDefault();
+        using var pdfDocument = new PdfDocument(stream);
+        var firstPageOfPdf = pdfDocument?.Pages?.FirstOrDefault();
+        ArgumentNullException.ThrowIfNull(firstPageOfPdf, nameof(firstPageOfPdf));
 
-            TryGetWidthAndHeight(page, out var width, out var height);
+        var (width, height) = GetDimensions(firstPageOfPdf);
 
-            ArgumentNullException.ThrowIfNull(page, nameof(page));
+        using var bitmap = new PdfiumBitmap(width, height, true);
+        firstPageOfPdf.Render(bitmap, PdfLibCore.Enums.PageOrientations.Normal, PdfLibCore.Enums.RenderingFlags.LcdText);
 
-            using var bitmap = new PdfiumBitmap(width, height, true);
-            page.Render(bitmap, PdfLibCore.Enums.PageOrientations.Normal, PdfLibCore.Enums.RenderingFlags.LcdText);
+        using var bmpStream = bitmap.AsBmpStream();
+        var image = Image.Load<TPixel>(bmpStream);
 
-            var image = Image.Load<TPixel>(bitmap.AsBmpStream());
+        ScaleToTargetSize(options.GeneralOptions, image);
 
-            ScaleToTargetSize(options.GeneralOptions, image);
+        return image;
+    }
 
-            return image;
-        }
+    protected override Image Decode(PdfDecoderOptions options, Stream stream, CancellationToken cancellationToken) => Decode<Rgba32>(options, stream, cancellationToken);
 
-        protected override Image Decode(PdfDecoderOptions options, Stream stream, CancellationToken cancellationToken) => Decode<Rgba32>(options, stream, cancellationToken);
+    protected override ImageInfo Identify(DecoderOptions options, Stream stream, CancellationToken cancellationToken)
+    {
+        ArgumentNullException.ThrowIfNull(options, nameof(options));
+        ArgumentNullException.ThrowIfNull(stream, nameof(stream));
 
-        protected override ImageInfo Identify(DecoderOptions options, Stream stream, CancellationToken cancellationToken)
-        {
-            ArgumentNullException.ThrowIfNull(options, nameof(options));
-            ArgumentNullException.ThrowIfNull(stream, nameof(stream));
+        using var pdfDocument = new PdfDocument(stream);
+        var firstPageOfPdf = pdfDocument?.Pages?.FirstOrDefault();
+        ArgumentNullException.ThrowIfNull(firstPageOfPdf, nameof(firstPageOfPdf));
 
-            using var pdfDocument = new PdfDocument(stream);
-            var page = pdfDocument?.Pages?.FirstOrDefault();
-            TryGetWidthAndHeight(page, out int width, out int height);
+        var (width, height) = GetDimensions(firstPageOfPdf);
 
-            return new ImageInfo(new PixelTypeInfo(4), new(width, height), null);
-        }
+        return new ImageInfo(new PixelTypeInfo(4), new(width, height), null);
+    }
 
-        private bool TryGetWidthAndHeight(PdfPage? page, out int width, out int height)
-        {
-            ArgumentNullException.ThrowIfNull(page, nameof(page));
-
-            var w = page.Size.Width;
-            w = w != 0 ? w / 72 * 144D : 0;
-
-            var h = page.Size.Height;
-            h = h != 0 ? h / 72 * 144D : 0;
-
-            width = (int)w;
-            height = (int)h;
-
-            return true;
-        }
+    private static (int width, int height) GetDimensions(PdfPage page)
+    {
+        ArgumentNullException.ThrowIfNull(page, nameof(page));
+        return ((int)page.Width, (int)page.Height);
     }
 }

@@ -1,36 +1,21 @@
-﻿using SixLabors.ImageSharp.Formats;
-using System.Diagnostics.CodeAnalysis;
+﻿namespace ImageSharpCommunity.Formats.Pdf;
 
-namespace ImageSharpCommunity.Formats.Pdf
+public class PdfFormatDetector : IImageFormatDetector
 {
-    public class PdfFormatDetector : IImageFormatDetector
+    public int HeaderSize => 16;
+
+    public bool TryDetectFormat(ReadOnlySpan<byte> header, [NotNullWhen(true)] out IImageFormat? format)
     {
-        public int HeaderSize => 16;
+        format = IsPDFFileFormat(header) ? PdfFormat.Instance : null;
+        return format != null;
+    }
 
-        public bool TryDetectFormat(ReadOnlySpan<byte> header, [NotNullWhen(true)] out IImageFormat? format)
-        {
-            format = IsPDFFileFormat(header) ? PdfFormat.Instance : null;
-
-            return format != null;
-        }
-
-        private bool IsPDFFileFormat(ReadOnlySpan<byte> header)
-        {
-            if (header.Length >= 4)
-            {
-                var first4 = header[..4];
-
-                var shouldMatch = new byte[]{
-                    0x25,   // %
-                    0x50,   // P
-                    0x44,   // D
-                    0x46,   // F
-                };
-
-                return first4.SequenceEqual(shouldMatch);
-            }
-
-            return false;
-        }
+    private static bool IsPDFFileFormat(ReadOnlySpan<byte> header)
+    {
+        return header.Length >= 4 &&
+               header[0] == 0x25 && // %
+               header[1] == 0x50 && // P
+               header[2] == 0x44 && // D
+               header[3] == 0x46;  // F
     }
 }

@@ -20,7 +20,7 @@
 		<RepositoryUrl>https://github.com/skttl/ImageSharpCommunity.Formats.Pdf</RepositoryUrl>
 		<RootNamespace>ImageSharpCommunity.Formats.Pdf</RootNamespace>
 		<Title>PDF Decoder for ImageSharp</Title>
-		<Version>0.1.0</Version>
+		<Version>0.2.0</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
