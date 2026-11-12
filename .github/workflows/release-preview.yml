@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Set VERSION variable from tag
       run: echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV
     - name: Output version name
@@ -16,9 +16,13 @@ jobs:
     - name: Cancel job if version is empty
       if: ${{ env.VERSION == '' }}
       run: exit 1
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
     - name: Build ImageSharp Package
       run: dotnet pack ./src/ImageSharpCommunity.Formats.Pdf/ImageSharpCommunity.Formats.Pdf.csproj /p:NuGetVersion=${VERSION} /p:Version=${VERSION} --output . --configuration Release
     - name: Pack
       run: dotnet pack ./src/ImageSharpCommunity.Formats.Pdf/ImageSharpCommunity.Formats.Pdf.csproj /p:NuGetVersion=${VERSION} /p:Version=${VERSION} --output . --configuration Release --no-build
     - name: Push to NuGet
-      run: dotnet nuget push **\ImageSharpCommunity.Formats.Pdf.${VERSION}.nupkg --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
+      run: dotnet nuget push "./ImageSharpCommunity.Formats.Pdf.${VERSION}.nupkg" --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json

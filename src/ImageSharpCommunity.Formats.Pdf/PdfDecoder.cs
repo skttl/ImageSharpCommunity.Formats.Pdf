@@ -1,4 +1,4 @@
-﻿namespace ImageSharpCommunity.Formats.Pdf;
+namespace ImageSharpCommunity.Formats.Pdf;
 
 public class PdfDecoder : SpecializedImageDecoder<PdfDecoderOptions>
 {
@@ -48,7 +48,7 @@ public class PdfDecoder : SpecializedImageDecoder<PdfDecoderOptions>
 
         var (width, height) = GetDimensions(firstPageOfPdf);
 
-        return new ImageInfo(new PixelTypeInfo(4), new(width, height), null);
+        return new ImageInfo(new(width, height), new());
     }
 
     private static (int width, int height) GetDimensions(PdfPage page)
