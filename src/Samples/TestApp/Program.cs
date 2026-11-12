@@ -1,4 +1,4 @@
-﻿using ImageSharpCommunity.Formats.Pdf;
+using ImageSharpCommunity.Formats.Pdf;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 
@@ -24,7 +24,7 @@ static void ConvertImage(string inputPath, string outputPath)
 
     //config.PreferContiguousImageBuffers = true;
 
-    using var image = Image.Load(inputPath);
+    using var image = Image.Load(new SixLabors.ImageSharp.Formats.DecoderOptions { Configuration = config }, inputPath);
 
     image.Mutate(x => x.Resize(100, 100));
     image.SaveAsPng(outputPath);

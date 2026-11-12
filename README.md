@@ -6,6 +6,14 @@
 
 Image decoder for PDF files for [ImageSharp](https://docs.sixlabors.com/articles/imagesharp/index.html) based on [PdfLibCore](https://github.com/jbaarssen/PdfLibCore)
 
+## Compatibility
+
+Version 4.0.0 targets .NET 8 or later and ImageSharp 4. The package major version follows ImageSharp. Use version 0.2.0 for ImageSharp 3.
+
+An assembly-scoped Six Labors Community license is included in `sixlabors.lic` and configured through `Directory.Build.props` for building the PDF library locally and in CI. It expires on 2028-02-10. Six Labors permits publishing assembly-scoped Community licenses.
+
+The `TestWebApp` sample directly references ImageSharp.Web and requires a Community license covering that assembly for Release builds. Debug builds can continue with a licensing warning.
+
 ## Install
 via [NuGet](https://www.nuget.org/packages/ImageSharpCommunity.Formats.Pdf):
 ```

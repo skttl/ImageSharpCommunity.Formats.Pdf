@@ -1,5 +1,6 @@
 using ImageSharpCommunity.Formats.Pdf;
-using SixLabors.ImageSharp.Web.DependencyInjection;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
